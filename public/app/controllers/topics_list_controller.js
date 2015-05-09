@@ -1,20 +1,14 @@
-FoorumApp.controller('TopicsListController', function($scope, $location, $routeParams, Api){
+FoorumApp.controller('TopicsListController', function($scope, $location, Api){
     // Toteuta kontrolleri tähän
+    $scope.newTopic = {};
     
     Api.getTopics().success(function(topics){
         $scope.topics = topics;
     });
     
     $scope.addTopic = (function() {
-        Api.addTopic().success(function(topic) {
-            topic.name = $scope.newTopic.name;
-            topic.description = $scope.newTopic.description;
-
-            $scope.topics.push(topic);
-            
-            var id = $routeParams.id;
-            
-            $location.path('topics/id');
+        Api.addTopic($scope.newTopic).success(function(topic) {
+            $location.path('topics/' + topic.id);
         });
     });
                         

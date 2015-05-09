@@ -20,7 +20,9 @@ router.get('/:id', function(req, res, next) {
     // Hae aihealue tällä id:llä tässä (Vinkki: findOne)
     var topicId = req.params.id;
     Models.Topic.findOne({        
-        where: {id: topicId},
+        where: {
+            id: topicId
+        },
         include: {
             model: Models.Message,
             include: {

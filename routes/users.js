@@ -15,12 +15,12 @@ router.post('/', function(req, res, next){
             username: userToAdd.username
         }
     }).then(function(user){
-        if(user){
-            res.status(400).json({ error: 'Käyttäjätunnus on jo käytössä!' });
-        }else{
+        if(!user){
             Models.User.create(user).then(function(newUser){
                 res.json(newUser);
-            });
+            });            
+        }else{
+            res.status(400).json({ error: 'Käyttäjätunnus on jo käytössä!' });
         }
   });  
 });

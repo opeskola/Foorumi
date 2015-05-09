@@ -1,4 +1,4 @@
-<div ng-controller="ShowTopicController">
+<div>
     <div class="page-header">
       <h1>{{topic.name}}</h1>
     </div>
@@ -8,21 +8,21 @@
     </p>
 </div>
     
-<h2>1 viesti</h2>
+<h2>{{topic.Messages.length}} viesti</h2>
 
-<ul class="media-list">
+<ul ng-repeat="message in topic.Messages" class="media-list">
   <li class="media">
     <div class="media-body">
       <h4 class="media-heading">
-        <a href="#/messages/1">Viestin otsikko</a>
+        <a href="#/messages/{{$index + 1}}">{{message.title}}</a>
       </h4>
 
       <p>
-        Viestin sisältö
+        {{message.content}}
       </p>
 
       <p class="text-muted">
-        Käyttäjätunnus tähän, 1.1.2015 12:00
+        {{message.User}}, {{message.createdAt | date: 'd' + '.' + 'M' + '.' + 'yyyy'+ ' ' + 'h' + ':' + 'mm'}}
       </p>
     </div>
   </li>
@@ -33,12 +33,12 @@
 <form>
   <div class="form-group">
     <label>Otsikko</label>
-    <input type="text" class="form-control">
+    <input type="text" class="form-control" ng-model="newMessage.title">
   </div>
 
   <div class="form-group">
     <label>Viesti</label>
-    <textarea class="form-control"></textarea>
+    <textarea class="form-control" ng-model="newMessage.content"></textarea>
   </div>
-  <button class="btn btn-success">Lisää viesti</button>
+  <button class="btn btn-success" ng-click="addMessage()">Lisää viesti</button>
 </form>
