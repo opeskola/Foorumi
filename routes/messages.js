@@ -33,6 +33,7 @@ router.post('/:id/reply', authentication, function(req, res, next){
     var replyToAdd = req.body;
     // Palauta vastauksena lisätty vastaus
     replyToAdd.MessageId = messageId;
+    replyToAdd.UserId = req.session.userId;
     Models.Reply.create(replyToAdd).then(function(reply){
        res.json(reply);
     });
